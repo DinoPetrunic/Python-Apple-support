@@ -1,0 +1,47 @@
+from fpdf import FPDF
+
+class EBookPDF(FPDF):
+    def header(self):
+        self.set_font("Helvetica", "B", 16)
+        self.set_text_color(40, 70, 100)
+        self.cell(0, 10, "Kako zaraditi online bez iskustva", ln=True, align="C")
+        self.ln(10)
+
+    def chapter_title(self, title):
+        self.set_font("Helvetica", "B", 14)
+        self.set_text_color(0)
+        self.cell(0, 10, title, ln=True)
+        self.ln(5)
+
+    def chapter_body(self, body):
+        self.set_font("Helvetica", "", 12)
+        self.set_text_color(50, 50, 50)
+        self.multi_cell(0, 8, body)
+        self.ln()
+
+    def add_chapter(self, title, body):
+        self.add_page()
+        self.chapter_title(title)
+        self.chapter_body(body)
+
+chapters = [
+    ("Uvod", "U ovom praktičnom vodiču naučićeš kako da započneš online zaradu bez ikakvog prethodnog iskustva."),
+    ("1. Šta znači zarađivati online?", "Online zarada može biti aktivna ili pasivna. Prednosti su fleksibilnost i mogućnost skaliranja."),
+    ("2. Top 5 načina za početnike", "- Online ankete\n- Unos podataka\n- Freelance pisanje\n- Virtualni asistent\n- Vođenje društvenih mreža"),
+    ("3. Gde da pronađeš posao?", "Najbolje platforme su: Upwork, Fiverr, Freelancer, Clickworker, Remotasks, Appen, Swagbucks"),
+    ("4. Kako napraviti profil", "Popuni profil detaljno, koristi jednostavan jezik i dodaj primere rada."),
+    ("5. Kako naplatiti svoj rad", "Koristi PayPal, Payoneer ili Wise. Lako se povezuju sa platformama."),
+    ("6. Kako povećati zaradu", "Uči Canva, WordPress, SEO. Dodaj pasivne izvore kao što su e-knjige."),
+    ("7. Greške početnika", "- Rad za sitno\n- Loša komunikacija\n- Gubitak motivacije"),
+    ("8. Motivacija", "Mnogo ljudi sa Balkana uspešno radi online – samo treba da počneš."),
+    ("Zaključak", "Počni danas – tvoj prvi prihod je bliže nego što misliš."),
+    ("BONUS", "- 15 platformi\n- Besplatni kursevi\n- Šablon CV-a")
+]
+
+pdf = EBookPDF()
+pdf.set_auto_page_break(auto=True, margin=15)
+
+for title, content in chapters:
+    pdf.add_chapter(title, content)
+
+pdf.output("Kako_zaraditi_online_bez_iskustva.pdf")
